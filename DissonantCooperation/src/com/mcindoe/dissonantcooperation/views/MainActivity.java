@@ -1,4 +1,9 @@
-package com.mcindoe.dissonantcooperation;
+package com.mcindoe.dissonantcooperation.views;
+
+import com.mcindoe.dissonantcooperation.R;
+import com.mcindoe.dissonantcooperation.R.id;
+import com.mcindoe.dissonantcooperation.R.layout;
+import com.mcindoe.dissonantcooperation.R.menu;
 
 import android.app.Activity;
 import android.app.ActionBar;
