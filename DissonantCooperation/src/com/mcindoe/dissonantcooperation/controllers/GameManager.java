@@ -77,6 +77,10 @@ public class GameManager {
 		return mPlayer;
 	}
 	
+	public List<Coin> getCoins() {
+		return mCoins;
+	}
+	
 	private class PlayerListener {
 		
 		private Firebase mFirebase;
