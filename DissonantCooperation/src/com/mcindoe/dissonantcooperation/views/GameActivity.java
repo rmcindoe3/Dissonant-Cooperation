@@ -1,5 +1,6 @@
 package com.mcindoe.dissonantcooperation.views;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -75,7 +76,7 @@ public class GameActivity extends ActionBarActivity implements GameManager.GameE
 	@Override
 	public void onGameLost() {
 		
-		final Context con = this;
+		final Activity con = this;
 
 		runOnUiThread(new Runnable() {
 
@@ -101,7 +102,7 @@ public class GameActivity extends ActionBarActivity implements GameManager.GameE
 	@Override
 	public void onGameWon() {
 		
-		final Context con = this;
+		final Activity con = this;
 
 		runOnUiThread(new Runnable() {
 
