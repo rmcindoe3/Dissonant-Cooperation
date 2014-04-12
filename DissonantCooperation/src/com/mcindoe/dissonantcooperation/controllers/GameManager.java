@@ -33,7 +33,7 @@ public class GameManager {
 
 		mFirebaseURL = firebaseURL;
 
-		mPlayer = new Player(0,0,mHxW,mHxW);
+		mPlayer = new Player(0,1,mHxW,mHxW);
 		mCoins = new ArrayList<Coin>();
 		
 		for(int i = 0; i < 5; i++) {

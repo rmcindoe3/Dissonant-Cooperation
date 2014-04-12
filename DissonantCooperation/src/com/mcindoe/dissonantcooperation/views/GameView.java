@@ -18,27 +18,47 @@ public class GameView extends View {
 	private Context mContext;
 
 	private GameManager mGameManager;
-	private Bitmap playerImg = BitmapFactory.decodeResource(getResources(), R.drawable.one);
-	private Bitmap coinImg = BitmapFactory.decodeResource(getResources(), R.drawable.coin);
+	private final Bitmap[] playerImages = {
+			BitmapFactory.decodeResource(getResources(), R.drawable.one), 
+			BitmapFactory.decodeResource(getResources(), R.drawable.two), 
+			BitmapFactory.decodeResource(getResources(), R.drawable.three), 
+			BitmapFactory.decodeResource(getResources(), R.drawable.two) };
+	private final Bitmap[] coinImages = {
+			BitmapFactory.decodeResource(getResources(), R.drawable.coin_one),
+			BitmapFactory.decodeResource(getResources(), R.drawable.coin_two),
+			BitmapFactory.decodeResource(getResources(), R.drawable.coin_three),
+			BitmapFactory.decodeResource(getResources(), R.drawable.coin_four),
+			BitmapFactory.decodeResource(getResources(), R.drawable.coin_three),
+			BitmapFactory.decodeResource(getResources(), R.drawable.coin_two),
+	};
 	
 	private Timer mGameUpdateTimer;
+	
+	private int animCounter;
+	private int animCounterUpdate;
 
 	public GameView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		mGameUpdateTimer = new Timer();
 		mContext = context;
+		animCounter = 0;
+		animCounterUpdate = 0;
 	}
 
 	public GameView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		mGameUpdateTimer = new Timer();
 		mContext = context;
+		animCounter = 0;
+		animCounterUpdate = 0;
 	}
 
 	public GameView(Context context) {
 		super(context);
 		mGameUpdateTimer = new Timer();
 		mContext = context;
+		animCounter = 0;
+		animCounterUpdate = 0;
 	}
 
 	public void setGameManager(GameManager gm) {
@@ -64,14 +84,14 @@ public class GameView extends View {
     		float coinLeft = (float) mGameManager.getCoins().get(i).getX();
         	float coinTop = (float) mGameManager.getCoins().get(i).getY();
         	
-        	canvas.drawBitmap(coinImg, coinLeft, coinTop, null);
+        	canvas.drawBitmap(coinImages[animCounter%6], coinLeft, coinTop, null);
     	}
     	
     	// display player
     	float playerLeft = (float) mGameManager.getPlayer().getX();
     	float playerTop = (float) mGameManager.getPlayer().getY();
     	
-    	canvas.drawBitmap(playerImg, playerLeft, playerTop, null);
+    	canvas.drawBitmap(playerImages[animCounter%4], playerLeft, playerTop, null);
     }
 
 	private class GameUpdateTimerTask extends TimerTask {
@@ -80,6 +100,10 @@ public class GameView extends View {
 		public void run() {
 			
 			mGameManager.updateGame();
+			
+			if((++animCounterUpdate)%3 == 0) {
+				animCounter++;
+			}
 
 			//We have to run this on our UI thread according to Android OS.
 			((Activity) mContext).runOnUiThread(new Runnable() {

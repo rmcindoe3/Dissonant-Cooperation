@@ -6,6 +6,7 @@
 
     <com.mcindoe.dissonantcooperation.views.GameView
         android:id="@+id/game_view"
+        android:background="@drawable/game_background"
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:layout_height="0dp" />
