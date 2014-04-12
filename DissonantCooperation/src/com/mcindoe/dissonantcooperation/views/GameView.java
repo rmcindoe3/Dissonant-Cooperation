@@ -2,7 +2,7 @@ package com.mcindoe.dissonantcooperation.views;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import android.annotation.SuppressLint;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
+
 import com.mcindoe.dissonantcooperation.R;
 import com.mcindoe.dissonantcooperation.controllers.GameManager;
 

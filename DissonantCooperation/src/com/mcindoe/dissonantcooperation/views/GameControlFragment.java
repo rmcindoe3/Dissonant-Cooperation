@@ -148,6 +148,42 @@ public class GameControlFragment extends Fragment {
 		
 		return rootView;
 	}
+	
+	public void updateUpArrowImage(boolean highlighted) {
+		if(highlighted) {
+			mUpButton.setImageDrawable(getResources().getDrawable(R.drawable.highlighted_up_arrow));
+		}
+		else {
+			mUpButton.setImageDrawable(getResources().getDrawable(R.drawable.up_arrow));
+		}
+	}
+	
+	public void updateDownArrowImage(boolean highlighted) {
+		if(highlighted) {
+			mDownButton.setImageDrawable(getResources().getDrawable(R.drawable.highlighted_down_arrow));
+		}
+		else {
+			mDownButton.setImageDrawable(getResources().getDrawable(R.drawable.down_arrow));
+		}
+	}
+	
+	public void updateLeftArrowImage(boolean highlighted) {
+		if(highlighted) {
+			mLeftButton.setImageDrawable(getResources().getDrawable(R.drawable.highlighted_left_arrow));
+		}
+		else {
+			mLeftButton.setImageDrawable(getResources().getDrawable(R.drawable.left_arrow));
+		}
+	}
+	
+	public void updateRightArrowImage(boolean highlighted) {
+		if(highlighted) {
+			mRightButton.setImageDrawable(getResources().getDrawable(R.drawable.highlighted_right_arrow));
+		}
+		else {
+			mRightButton.setImageDrawable(getResources().getDrawable(R.drawable.right_arrow));
+		}
+	}
 		
 	public void disconnect() {
 		mGameView.disconnect();

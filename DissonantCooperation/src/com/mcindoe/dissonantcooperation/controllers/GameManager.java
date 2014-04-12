@@ -220,9 +220,10 @@ public class GameManager {
 
 		@Override
 		public void onDataChange(DataSnapshot snap) {
-			mPlayer.setXdel(mPlayer.getXdel() - Integer.parseInt(snap.getValue().toString()) + prevValue);
-			prevValue = Integer.parseInt(snap.getValue().toString());
-			Log.d("DISS COOP", "left value changed, xdel: " + mPlayer.getXdel());
+			int newValue = Integer.parseInt(snap.getValue().toString());
+			mPlayer.setXdel(mPlayer.getXdel() - newValue + prevValue);
+			prevValue = newValue;
+			mGameEventListener.updateLeftArrowImage(newValue == 1);
 		}
 
 		@Override
@@ -241,9 +242,10 @@ public class GameManager {
 
 		@Override
 		public void onDataChange(DataSnapshot snap) {
-			mPlayer.setYdel(mPlayer.getYdel() - Integer.parseInt(snap.getValue().toString()) + prevValue);
-			prevValue = Integer.parseInt(snap.getValue().toString());
-			Log.d("DISS COOP", "up value changed, ydel: " + mPlayer.getYdel());
+			int newValue = Integer.parseInt(snap.getValue().toString());
+			mPlayer.setYdel(mPlayer.getYdel() - newValue + prevValue);
+			prevValue = newValue;
+			mGameEventListener.updateUpArrowImage(newValue == 1);
 		}
 
 		@Override
@@ -262,9 +264,10 @@ public class GameManager {
 
 		@Override
 		public void onDataChange(DataSnapshot snap) {
-			mPlayer.setYdel(mPlayer.getYdel() + Integer.parseInt(snap.getValue().toString()) - prevValue);
-			prevValue = Integer.parseInt(snap.getValue().toString());
-			Log.d("DISS COOP", "down value changed, ydel: " + mPlayer.getYdel());
+			int newValue = Integer.parseInt(snap.getValue().toString());
+			mPlayer.setYdel(mPlayer.getYdel() + newValue - prevValue);
+			prevValue = newValue;
+			mGameEventListener.updateDownArrowImage(newValue == 1);
 		}
 
 		@Override
@@ -283,9 +286,10 @@ public class GameManager {
 
 		@Override
 		public void onDataChange(DataSnapshot snap) {
-			mPlayer.setXdel(mPlayer.getXdel() + Integer.parseInt(snap.getValue().toString()) - prevValue);
-			prevValue = Integer.parseInt(snap.getValue().toString());
-			Log.d("DISS COOP", "right value changed, xdel: " + mPlayer.getXdel());
+			int newValue = Integer.parseInt(snap.getValue().toString());
+			mPlayer.setXdel(mPlayer.getXdel() + newValue - prevValue);
+			prevValue = newValue;
+			mGameEventListener.updateRightArrowImage(newValue == 1);
 		}
 
 		@Override
@@ -297,5 +301,9 @@ public class GameManager {
 	public interface GameEventListener {
 		public abstract void onGameLost();
 		public abstract void onGameWon();
+		public void updateUpArrowImage(boolean highlighted);
+		public void updateDownArrowImage(boolean highlighted);
+		public void updateRightArrowImage(boolean highlighted);
+		public void updateLeftArrowImage(boolean highlighted);
 	}
 }

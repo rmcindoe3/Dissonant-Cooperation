@@ -2,7 +2,6 @@ package com.mcindoe.dissonantcooperation.views;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -122,6 +121,26 @@ public class GameActivity extends ActionBarActivity implements GameManager.GameE
 				dialog.show();
 			}
 		});
+	}
+
+	@Override
+	public void updateUpArrowImage(boolean highlighted) {
+		mGameControlFragment.updateUpArrowImage(highlighted);
+	}
+
+	@Override
+	public void updateDownArrowImage(boolean highlighted) {
+		mGameControlFragment.updateDownArrowImage(highlighted);
+	}
+
+	@Override
+	public void updateRightArrowImage(boolean highlighted) {
+		mGameControlFragment.updateRightArrowImage(highlighted);
+	}
+
+	@Override
+	public void updateLeftArrowImage(boolean highlighted) {
+		mGameControlFragment.updateLeftArrowImage(highlighted);
 	}
 
 }
