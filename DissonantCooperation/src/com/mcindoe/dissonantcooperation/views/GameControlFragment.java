@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.firebase.client.Firebase;
 import com.mcindoe.dissonantcooperation.R;
@@ -19,10 +19,10 @@ public class GameControlFragment extends Fragment {
 	
 	private GameView mGameView;
 
-	private Button mLeftButton;
-	private Button mRightButton;
-	private Button mUpButton;
-	private Button mDownButton;
+	private ImageButton mLeftButton;
+	private ImageButton mRightButton;
+	private ImageButton mUpButton;
+	private ImageButton mDownButton;
 	
 	private String mFirebaseURL;
 	
@@ -44,10 +44,10 @@ public class GameControlFragment extends Fragment {
 		mFirebase.child("up").setValue(0);
 		mFirebase.child("down").setValue(0);
 		
-		mLeftButton = (Button)rootView.findViewById(R.id.button_left);
-		mRightButton = (Button)rootView.findViewById(R.id.button_right);
-		mUpButton = (Button)rootView.findViewById(R.id.button_up);
-		mDownButton = (Button)rootView.findViewById(R.id.button_down);
+		mLeftButton = (ImageButton)rootView.findViewById(R.id.button_left);
+		mRightButton = (ImageButton)rootView.findViewById(R.id.button_right);
+		mUpButton = (ImageButton)rootView.findViewById(R.id.button_up);
+		mDownButton = (ImageButton)rootView.findViewById(R.id.button_down);
 		
 		mGameView = (GameView)rootView.findViewById(R.id.game_view);
 		mGameView.setGameManager(new GameManager(getResources().getString(R.string.firebase_base_url)));

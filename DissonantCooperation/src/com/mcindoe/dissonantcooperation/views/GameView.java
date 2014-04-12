@@ -33,7 +33,7 @@ public class GameView extends View {
 	public void setGameManager(GameManager gm) {
 		mGameManager = gm;
 	}
-	
+
 	public void disconnect() {
 		mGameManager.disconnect();
 	}
