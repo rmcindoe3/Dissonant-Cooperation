@@ -20,7 +20,8 @@ public class GameManager {
 	private String mFirebaseURL;
 	
 	private Firebase mFirebasePlayerRoot;
-	private List<Firebase> mFirebasePlayers;
+	private List<PlayerListener> mFirebasePlayers;
+	private ChildEventListener mChildEventListener;
 	
 	public GameManager(String firebaseURL) {
 		
@@ -34,9 +35,9 @@ public class GameManager {
 		}
 		
 		mFirebasePlayerRoot = new Firebase(mFirebaseURL + "player/");
-		mFirebasePlayers = new ArrayList<Firebase>();
+		mFirebasePlayers = new ArrayList<PlayerListener>();
 		
-		mFirebasePlayerRoot.addChildEventListener(new ChildEventListener() {
+		mChildEventListener = new ChildEventListener() {
 
 			@Override
 			public void onCancelled(FirebaseError arg0) {
@@ -44,14 +45,7 @@ public class GameManager {
 
 			@Override
 			public void onChildAdded(DataSnapshot snap, String prevChildName) {
-				
-				Firebase temp = new Firebase(mFirebaseURL + "player/" + snap.getName());
-				temp.child("left").addValueEventListener(new LeftValueEventListener());
-				temp.child("right").addValueEventListener(new RightValueEventListener());
-				temp.child("up").addValueEventListener(new UpValueEventListener());
-				temp.child("down").addValueEventListener(new DownValueEventListener());
-
-				mFirebasePlayers.add(temp);
+				mFirebasePlayers.add(new PlayerListener(mFirebaseURL + "player/" + snap.getName()));
 			}
 
 			@Override
@@ -65,12 +59,58 @@ public class GameManager {
 			@Override
 			public void onChildRemoved(DataSnapshot arg0) {
 			}
-			
-		});
+		};
+		
+		mFirebasePlayerRoot.addChildEventListener(mChildEventListener);
+	}
+	
+	public void disconnect() {
+		mFirebasePlayerRoot.removeEventListener(mChildEventListener);
+		
+		while(!mFirebasePlayers.isEmpty()) {
+			mFirebasePlayers.get(0).stopListening();
+			mFirebasePlayers.remove(0);
+		}
 	}
 	
 	public Player getPlayer() {
 		return mPlayer;
+	}
+	
+	public List<Coin> getCoins() {
+		return mCoins;
+	}
+	
+	private class PlayerListener {
+		
+		private Firebase mFirebase;
+		private LeftValueEventListener mLeftListener;
+		private RightValueEventListener mRightListener;
+		private UpValueEventListener mUpListener;
+		private DownValueEventListener mDownListener;
+		
+		public PlayerListener(String firebaseURL) {
+			
+			mFirebase = new Firebase(firebaseURL);
+
+			mLeftListener = new LeftValueEventListener();
+			mRightListener = new RightValueEventListener();
+			mUpListener = new UpValueEventListener();
+			mDownListener = new DownValueEventListener();
+			
+			mFirebase.child("left").addValueEventListener(mLeftListener);
+			mFirebase.child("right").addValueEventListener(mRightListener);
+			mFirebase.child("up").addValueEventListener(mUpListener);
+			mFirebase.child("down").addValueEventListener(mDownListener);
+		}
+		
+		public void stopListening() {
+			mFirebase.child("left").removeEventListener(mLeftListener);
+			mFirebase.child("right").removeEventListener(mRightListener);
+			mFirebase.child("up").removeEventListener(mUpListener);
+			mFirebase.child("down").removeEventListener(mDownListener);
+		}
+		
 	}
 	
 	private class LeftValueEventListener implements ValueEventListener {

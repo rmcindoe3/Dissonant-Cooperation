@@ -2,8 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.mcindoe.dissonantcooperation.GameActivity$PlaceholderFragment" >
+    android:orientation="vertical" >
+
+    <com.mcindoe.dissonantcooperation.views.GameView
+        android:id="@+id/game_view"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp" />
 
     <LinearLayout
         android:gravity="center"
@@ -30,7 +35,7 @@
     		
             <Button
                 android:id="@+id/button_up"
-                android:text="Down"
+                android:text="Up"
     			android:layout_width="match_parent"
     			android:layout_weight="1"
     			android:layout_height="0dp" />
