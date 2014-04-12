@@ -19,6 +19,9 @@ public class GameManager {
 	private List<Coin> mCoins;
 	private String mFirebaseURL;
 	
+	private int mScreenHeight;
+	private int mScreenWidth;
+	
 	private Firebase mFirebasePlayerRoot;
 	private List<PlayerListener> mFirebasePlayers;
 	private ChildEventListener mChildEventListener;
@@ -62,6 +65,37 @@ public class GameManager {
 		};
 		
 		mFirebasePlayerRoot.addChildEventListener(mChildEventListener);
+	}
+	
+	public void setDimensions(int height, int width) {
+		mScreenHeight = height;
+		mScreenWidth = width;
+	}
+	
+	public void updateGame() {
+		
+		mPlayer.updatePosition();
+
+		if(mPlayer.getX() + mPlayer.getWidth() > mScreenWidth) {
+			mPlayer.setX(mScreenWidth - mPlayer.getWidth());
+		}
+		else if(mPlayer.getX() < 0) {
+			mPlayer.setX(0);
+		}
+
+		if(mPlayer.getY() + mPlayer.getHeight() > mScreenHeight) {
+			mPlayer.setY(mScreenHeight - mPlayer.getHeight());
+		}
+		else if(mPlayer.getY() < 0) {
+			mPlayer.setY(0);
+		}
+		
+		for(int i = 0; i < mCoins.size(); i++) {
+			if(mPlayer.isColliding(mCoins.get(i))) {
+				mCoins.remove(i--);
+			}
+		}
+		
 	}
 	
 	public void disconnect() {

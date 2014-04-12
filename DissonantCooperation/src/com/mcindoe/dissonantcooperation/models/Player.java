@@ -26,5 +26,9 @@ public class Player extends GameObject {
 		this.ydel = ydel;
 	}
 	
+	public void updatePosition() {
+		x += xdel;
+		y += ydel;
+	}
 	
 }

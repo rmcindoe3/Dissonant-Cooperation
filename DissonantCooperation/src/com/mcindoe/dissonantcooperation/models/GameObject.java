@@ -2,7 +2,10 @@ package com.mcindoe.dissonantcooperation.models;
 
 public abstract class GameObject {
 	
-	private int x, y, height, width;
+	protected int x;
+	protected int y;
+	protected int height;
+	protected int width;
 	
 	public GameObject(int x, int y, int height, int width) {
 		setX(x);
