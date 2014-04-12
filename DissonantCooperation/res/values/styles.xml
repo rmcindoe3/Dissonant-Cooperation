@@ -15,6 +15,19 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+    </style>
+    
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse" >
+        <item name="android:background">@drawable/top_bar</item>
+    </style>
+    
+    <style name="Layout" parent="AppTheme">
+        <item name="android:background">#92FFBC</item>
+    </style>
+    
+    <style name="Layout.Button">
+        <item name="android:background">@drawable/selector_navigation_button</item>
     </style>
 
 </resources>

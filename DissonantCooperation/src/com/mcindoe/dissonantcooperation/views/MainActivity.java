@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.mcindoe.dissonantcooperation.R;
 
@@ -75,9 +76,14 @@ public class MainActivity extends ActionBarActivity {
 				@Override
 				public void onClick(View v) {
 
-					Intent intent = new Intent(getActivity(), GameActivity.class);
-					intent.putExtra(GameActivity.KW_NAME, mNameEditText.getText().toString());
-					startActivityForResult(intent, 0);
+					if(mNameEditText.getText().toString().length() >= 1) {
+						Intent intent = new Intent(getActivity(), GameActivity.class);
+						intent.putExtra(GameActivity.KW_NAME, mNameEditText.getText().toString());
+						startActivityForResult(intent, 0);
+					}
+					else {
+						Toast.makeText(getActivity(), "Enter a name!" , Toast.LENGTH_LONG).show();
+					}
 				}
 			});
 			
