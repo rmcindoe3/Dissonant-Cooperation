@@ -23,6 +23,8 @@ public class GameView extends View {
 			BitmapFactory.decodeResource(getResources(), R.drawable.one), 
 			BitmapFactory.decodeResource(getResources(), R.drawable.two), 
 			BitmapFactory.decodeResource(getResources(), R.drawable.three), 
+			BitmapFactory.decodeResource(getResources(), R.drawable.four), 
+			BitmapFactory.decodeResource(getResources(), R.drawable.three), 
 			BitmapFactory.decodeResource(getResources(), R.drawable.two) };
 	private final Bitmap[] coinImages = {
 			BitmapFactory.decodeResource(getResources(), R.drawable.coin_one),
@@ -104,7 +106,7 @@ public class GameView extends View {
     	float playerLeft = (float) mGameManager.getPlayer().getX();
     	float playerTop = (float) mGameManager.getPlayer().getY();
     	
-    	canvas.drawBitmap(playerImages[animCounter%4], playerLeft, playerTop, null);
+    	canvas.drawBitmap(playerImages[animCounter%6], playerLeft, playerTop, null);
     }
 
 	private class GameUpdateTimerTask extends TimerTask {
