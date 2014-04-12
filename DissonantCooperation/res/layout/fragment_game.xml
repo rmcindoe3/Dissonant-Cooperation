@@ -30,7 +30,7 @@
     		
             <Button
                 android:id="@+id/button_up"
-                android:text="Down"
+                android:text="Up"
     			android:layout_width="match_parent"
     			android:layout_weight="1"
     			android:layout_height="0dp" />

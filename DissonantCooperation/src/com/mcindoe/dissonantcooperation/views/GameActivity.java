@@ -40,6 +40,18 @@ public class GameActivity extends ActionBarActivity {
 	}
 
 	@Override
+	protected void onPause() {
+		super.onPause();
+		mGameManager.disconnect();
+		finish();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
