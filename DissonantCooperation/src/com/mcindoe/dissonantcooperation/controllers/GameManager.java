@@ -36,10 +36,6 @@ public class GameManager {
 		mPlayer = new Player(0,1,mHxW,mHxW);
 		mCoins = new ArrayList<Coin>();
 		
-		for(int i = 0; i < 5; i++) {
-			mCoins.add(new Coin((int)(Math.random()*500), (int)(Math.random()*500), mHxW, mHxW));
-		}
-		
 		mFirebasePlayerRoot = new Firebase(mFirebaseURL + "player/");
 		mFirebasePlayers = new ArrayList<PlayerListener>();
 		
@@ -73,6 +69,14 @@ public class GameManager {
 	public void setDimensions(int height, int width) {
 		mScreenHeight = height;
 		mScreenWidth = width;
+		
+		for(int i = 0; i < 5; i++) {
+			mCoins.add(new Coin((int)(Math.random()*(width-mHxW)), (int)(Math.random()*(height-mHxW)), mHxW, mHxW));
+		}
+	}
+	
+	public boolean dimensionsAreSet() {
+		return (mScreenHeight != 0);
 	}
 	
 	public void updateGame() {
@@ -95,7 +99,6 @@ public class GameManager {
 		
 		for(int i = 0; i < mCoins.size(); i++) {
 			if(mPlayer.isColliding(mCoins.get(i))) {
-				Log.d("DISS COOP", "deleting a coin");
 				mCoins.remove(i--);
 			}
 		}

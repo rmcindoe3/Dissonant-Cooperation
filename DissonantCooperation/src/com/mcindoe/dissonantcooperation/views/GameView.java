@@ -36,6 +36,8 @@ public class GameView extends View {
 	
 	private int animCounter;
 	private int animCounterUpdate;
+	
+	private boolean mDisconnecting;
 
 	public GameView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
@@ -43,6 +45,7 @@ public class GameView extends View {
 		mContext = context;
 		animCounter = 0;
 		animCounterUpdate = 0;
+		mDisconnecting = false;
 	}
 
 	public GameView(Context context, AttributeSet attrs) {
@@ -51,6 +54,7 @@ public class GameView extends View {
 		mContext = context;
 		animCounter = 0;
 		animCounterUpdate = 0;
+		mDisconnecting = false;
 	}
 
 	public GameView(Context context) {
@@ -59,6 +63,7 @@ public class GameView extends View {
 		mContext = context;
 		animCounter = 0;
 		animCounterUpdate = 0;
+		mDisconnecting = false;
 	}
 
 	public void setGameManager(GameManager gm) {
@@ -66,16 +71,23 @@ public class GameView extends View {
 	}
 
 	public void disconnect() {
+		mDisconnecting = true;
 		mGameUpdateTimer.cancel();
 		mGameManager.disconnect();
 	}
 	
     protected void onDraw(Canvas canvas) {
-		mGameManager.setDimensions(getHeight(), getWidth());
+
+    	if(!mGameManager.dimensionsAreSet()) {
+    		mGameManager.setDimensions(getHeight(), getWidth());
+    	}
+
     	super.onDraw(canvas);
     	drawGameImg(canvas);
 
-		mGameUpdateTimer.schedule(new GameUpdateTimerTask(), 15);
+    	if(!mDisconnecting) {
+    		mGameUpdateTimer.schedule(new GameUpdateTimerTask(), 15);
+    	}
     }
     
     private void drawGameImg(Canvas canvas) {
