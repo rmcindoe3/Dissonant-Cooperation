@@ -15,6 +15,9 @@ public class GameActivity extends ActionBarActivity implements GameManager.GameE
 	
 	public static final String KW_NAME = "name";
 	
+	public static final int GAME_WON = 1;
+	public static final int GAME_LOST = 0;
+	
 	private String mName;
 	private GameControlFragment mGameControlFragment;
 
@@ -76,6 +79,7 @@ public class GameActivity extends ActionBarActivity implements GameManager.GameE
 	public void onGameLost() {
 		
 		final Activity con = this;
+		setResult(GAME_LOST);
 
 		runOnUiThread(new Runnable() {
 
@@ -104,6 +108,7 @@ public class GameActivity extends ActionBarActivity implements GameManager.GameE
 	public void onGameWon() {
 		
 		final Activity con = this;
+		setResult(GAME_WON);
 
 		runOnUiThread(new Runnable() {
 
