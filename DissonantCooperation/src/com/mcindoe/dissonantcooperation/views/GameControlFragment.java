@@ -186,6 +186,7 @@ public class GameControlFragment extends Fragment {
 	}
 		
 	public void disconnect() {
+		mFirebase.removeValue();
 		mGameView.disconnect();
 	}
 }

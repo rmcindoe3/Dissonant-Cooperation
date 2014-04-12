@@ -221,10 +221,12 @@ public class GameManager {
 
 		@Override
 		public void onDataChange(DataSnapshot snap) {
-			int newValue = Integer.parseInt(snap.getValue().toString());
-			mPlayer.setXdel(mPlayer.getXdel() - newValue + prevValue);
-			prevValue = newValue;
-			mGameEventListener.updateLeftArrowImage(newValue == 1);
+			if(snap.getValue() != null) {
+				int newValue = Integer.parseInt(snap.getValue().toString());
+				mPlayer.setXdel(mPlayer.getXdel() - newValue + prevValue);
+				prevValue = newValue;
+				mGameEventListener.updateLeftArrowImage(newValue == 1);
+			}
 		}
 
 		@Override
@@ -243,10 +245,12 @@ public class GameManager {
 
 		@Override
 		public void onDataChange(DataSnapshot snap) {
-			int newValue = Integer.parseInt(snap.getValue().toString());
-			mPlayer.setYdel(mPlayer.getYdel() - newValue + prevValue);
-			prevValue = newValue;
-			mGameEventListener.updateUpArrowImage(newValue == 1);
+			if(snap.getValue() != null) {
+				int newValue = Integer.parseInt(snap.getValue().toString());
+				mPlayer.setYdel(mPlayer.getYdel() - newValue + prevValue);
+				prevValue = newValue;
+				mGameEventListener.updateUpArrowImage(newValue == 1);
+			}
 		}
 
 		@Override
@@ -265,10 +269,12 @@ public class GameManager {
 
 		@Override
 		public void onDataChange(DataSnapshot snap) {
-			int newValue = Integer.parseInt(snap.getValue().toString());
-			mPlayer.setYdel(mPlayer.getYdel() + newValue - prevValue);
-			prevValue = newValue;
-			mGameEventListener.updateDownArrowImage(newValue == 1);
+			if(snap.getValue() != null) {
+				int newValue = Integer.parseInt(snap.getValue().toString());
+				mPlayer.setYdel(mPlayer.getYdel() + newValue - prevValue);
+				prevValue = newValue;
+				mGameEventListener.updateDownArrowImage(newValue == 1);
+			}
 		}
 
 		@Override
@@ -287,10 +293,12 @@ public class GameManager {
 
 		@Override
 		public void onDataChange(DataSnapshot snap) {
-			int newValue = Integer.parseInt(snap.getValue().toString());
-			mPlayer.setXdel(mPlayer.getXdel() + newValue - prevValue);
-			prevValue = newValue;
-			mGameEventListener.updateRightArrowImage(newValue == 1);
+			if(snap.getValue() != null) {
+				int newValue = Integer.parseInt(snap.getValue().toString());
+				mPlayer.setXdel(mPlayer.getXdel() + newValue - prevValue);
+				prevValue = newValue;
+				mGameEventListener.updateRightArrowImage(newValue == 1);
+			}
 		}
 
 		@Override
