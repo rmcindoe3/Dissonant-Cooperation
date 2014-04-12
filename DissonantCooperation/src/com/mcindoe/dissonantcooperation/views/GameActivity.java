@@ -1,13 +1,17 @@
 package com.mcindoe.dissonantcooperation.views;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mcindoe.dissonantcooperation.R;
+import com.mcindoe.dissonantcooperation.controllers.GameManager;
 
-public class GameActivity extends ActionBarActivity {
+public class GameActivity extends ActionBarActivity implements GameManager.GameEventListener {
 	
 	public static final String KW_NAME = "name";
 	
@@ -25,6 +29,7 @@ public class GameActivity extends ActionBarActivity {
 		if (savedInstanceState == null) {
 
 			mGameControlFragment = new GameControlFragment();
+			mGameControlFragment.setGameEventListener(this);
 			
 			Bundle args = new Bundle();
 			args.putString(GameControlFragment.KW_FIREBASE_URL, getResources().getString(R.string.firebase_player_url) + mName);
@@ -65,6 +70,57 @@ public class GameActivity extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onGameLost() {
+		
+		final Context con = this;
+
+		runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				AlertDialog.Builder builder = new AlertDialog.Builder(con);
+				builder.setTitle("Defeat");
+				builder.setMessage("Someone else collected all their coins!");
+				builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						finish();
+					}
+				});
+				AlertDialog dialog = builder.create();
+
+				dialog.show();
+			}
+			
+		});
+	}
+
+	@Override
+	public void onGameWon() {
+		
+		final Context con = this;
+
+		runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				AlertDialog.Builder builder = new AlertDialog.Builder(con);
+				builder.setTitle("Victory");
+				builder.setMessage("You collected your coins before anyone else!");
+				builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						finish();
+					}
+				});
+				AlertDialog dialog = builder.create();
+
+				dialog.show();
+			}
+		});
 	}
 
 }

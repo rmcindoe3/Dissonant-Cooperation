@@ -27,9 +27,15 @@ public class GameControlFragment extends Fragment {
 	private String mFirebaseURL;
 	
 	private Firebase mFirebase;
+	
+	private GameManager.GameEventListener mGameEventListener;
 
 	public GameControlFragment() {
 
+	}
+	
+	public void setGameEventListener(GameManager.GameEventListener gel) {
+		mGameEventListener = gel;
 	}
 
 	@Override
@@ -50,7 +56,7 @@ public class GameControlFragment extends Fragment {
 		mDownButton = (ImageButton)rootView.findViewById(R.id.button_down);
 		
 		mGameView = (GameView)rootView.findViewById(R.id.game_view);
-		mGameView.setGameManager(new GameManager(getResources().getString(R.string.firebase_base_url)));
+		mGameView.setGameManager(new GameManager(mGameEventListener, getResources().getString(R.string.firebase_base_url)));
 		
 		mLeftButton.setOnTouchListener(new OnTouchListener() {
 

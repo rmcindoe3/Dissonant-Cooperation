@@ -3,7 +3,6 @@ package com.mcindoe.dissonantcooperation.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.firebase.client.ChildEventListener;
@@ -26,10 +25,20 @@ public class GameManager {
 	private int mScreenWidth;
 	
 	private Firebase mFirebasePlayerRoot;
+	private Firebase mFirebaseGameState;
 	private List<PlayerListener> mFirebasePlayers;
-	private ChildEventListener mChildEventListener;
+	private ChildEventListener mPlayerChildEventListener;
+	private ValueEventListener mGameStateEventListener;
 	
-	public GameManager(String firebaseURL) {
+	private GameEventListener mGameEventListener;
+	
+	private boolean gameOver;
+	
+	public GameManager(GameEventListener gel, String firebaseURL) {
+		
+		gameOver = false;
+		
+		mGameEventListener = gel;
 
 		mFirebaseURL = firebaseURL;
 
@@ -37,9 +46,47 @@ public class GameManager {
 		mCoins = new ArrayList<Coin>();
 		
 		mFirebasePlayerRoot = new Firebase(mFirebaseURL + "player/");
+		mFirebaseGameState = new Firebase(mFirebaseURL + "gamestate/");
+		
+		mGameStateEventListener = new ValueEventListener() {
+			
+			private final int NO_PREV_STATE = 0, GAME_ON = 1, GAME_OVER = 2;
+			int prevState = NO_PREV_STATE;
+
+			@Override
+			public void onCancelled(FirebaseError arg0) {
+			}
+
+			@Override
+			public void onDataChange(DataSnapshot snap) {
+				
+				int newState = Integer.parseInt(snap.getValue().toString());
+
+				if(prevState == NO_PREV_STATE) {
+					if(newState == GAME_ON) {
+						prevState = GAME_ON;
+					}
+					else if(newState == GAME_OVER) {
+						prevState = GAME_ON;
+						mFirebaseGameState.child("currState").setValue(GAME_ON);
+					}
+				}
+				else {
+					if(newState == GAME_OVER) {
+						//WE LOST!!!
+						if(!gameOver) {
+							mGameEventListener.onGameLost();
+						}
+					}
+				}
+			}
+		};
+
+		mFirebaseGameState.child("currState").addValueEventListener(mGameStateEventListener);
+		
 		mFirebasePlayers = new ArrayList<PlayerListener>();
 		
-		mChildEventListener = new ChildEventListener() {
+		mPlayerChildEventListener = new ChildEventListener() {
 
 			@Override
 			public void onCancelled(FirebaseError arg0) {
@@ -63,7 +110,7 @@ public class GameManager {
 			}
 		};
 		
-		mFirebasePlayerRoot.addChildEventListener(mChildEventListener);
+		mFirebasePlayerRoot.addChildEventListener(mPlayerChildEventListener);
 	}
 	
 	public void setDimensions(int height, int width) {
@@ -99,14 +146,23 @@ public class GameManager {
 		
 		for(int i = 0; i < mCoins.size(); i++) {
 			if(mPlayer.isColliding(mCoins.get(i))) {
+
 				mCoins.remove(i--);
+
+				if(mCoins.size() == 0) {
+					
+					mFirebaseGameState.child("currState").setValue(2);
+					gameOver = true;
+					mGameEventListener.onGameWon();
+				}
 			}
 		}
 		
 	}
 	
 	public void disconnect() {
-		mFirebasePlayerRoot.removeEventListener(mChildEventListener);
+		mFirebasePlayerRoot.removeEventListener(mPlayerChildEventListener);
+		mFirebaseGameState.removeEventListener(mGameStateEventListener);
 		
 		while(!mFirebasePlayers.isEmpty()) {
 			mFirebasePlayers.get(0).stopListening();
@@ -238,4 +294,8 @@ public class GameManager {
 		}
 	}
 
+	public interface GameEventListener {
+		public abstract void onGameLost();
+		public abstract void onGameWon();
+	}
 }

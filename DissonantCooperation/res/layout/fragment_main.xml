@@ -22,7 +22,7 @@
         android:id="@+id/edit_text_enter_name"
         android:background="@drawable/edit_text"
         android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:hint="Enter your name..." />
@@ -31,11 +31,9 @@
         style="@style/Layout.Button"
         android:id="@+id/button_play"
         android:layout_marginTop="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Play"
+        android:text="Play!"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
