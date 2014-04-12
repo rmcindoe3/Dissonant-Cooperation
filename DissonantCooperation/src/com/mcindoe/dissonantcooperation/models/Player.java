@@ -1,5 +1,7 @@
 package com.mcindoe.dissonantcooperation.models;
 
+import android.util.Log;
+
 public class Player extends GameObject {
 	
 	private int xdel, ydel;
@@ -27,8 +29,15 @@ public class Player extends GameObject {
 	}
 	
 	public void updatePosition() {
-		x += xdel;
-		y += ydel;
+		x += 10*xdel;
+		y += 10*ydel;
+	}
+	
+	public void printPlayerInfo() {
+		Log.d("DISS COOP", "X: " + x);
+		Log.d("DISS COOP", "Y: " + y);
+		Log.d("DISS COOP", "Xdel: " + xdel);
+		Log.d("DISS COOP", "Ydel: " + ydel);
 	}
 	
 }
