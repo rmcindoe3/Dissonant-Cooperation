@@ -115,7 +115,7 @@ public class MainActivity extends ActionBarActivity {
 				mStreakTextView.setText("Win Streak: " + streak);
 			}
 			else {
-				mStreakTextView.setText("Loss Streak: " + streak);
+				mStreakTextView.setText("Loss Streak: " + -1*streak);
 			}
 		}
 
