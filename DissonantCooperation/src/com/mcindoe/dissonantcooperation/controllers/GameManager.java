@@ -3,6 +3,8 @@ package com.mcindoe.dissonantcooperation.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.util.Log;
+
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -67,29 +69,8 @@ public class GameManager {
 		});
 	}
 	
-	public void startListening() {
-		
-		Firebase.goOnline();
-	}
-	
-	public void stopListening() {
-		
-		Firebase.goOffline();
-		
-		/* I THINK THIS IS WRONG, but im not going to delete it yet.
-		mFirebasePlayerRoot.goOffline();
-		mFirebasePlayerRoot = null;
-		
-		while(!mFirebasePlayers.isEmpty()) {
-			
-			mFirebasePlayers.get(0).child("left").goOffline();
-			mFirebasePlayers.get(0).child("right").goOffline();
-			mFirebasePlayers.get(0).child("up").goOffline();
-			mFirebasePlayers.get(0).child("down").goOffline();
-			mFirebasePlayers.get(0).goOffline();
-			mFirebasePlayers.set(0, null);
-			mFirebasePlayers.remove(0);
-		}*/
+	public Player getPlayer() {
+		return mPlayer;
 	}
 	
 	private class LeftValueEventListener implements ValueEventListener {
@@ -102,8 +83,9 @@ public class GameManager {
 
 		@Override
 		public void onDataChange(DataSnapshot snap) {
-			mPlayer.setXdel(mPlayer.getXdel() - (int)snap.getValue() + prevValue);
-			prevValue = (int)snap.getValue();
+			mPlayer.setXdel(mPlayer.getXdel() - Integer.parseInt(snap.getValue().toString()) + prevValue);
+			prevValue = Integer.parseInt(snap.getValue().toString());
+			Log.d("DISS COOP", "left value changed, xdel: " + mPlayer.getXdel());
 		}
 
 		@Override
@@ -122,8 +104,9 @@ public class GameManager {
 
 		@Override
 		public void onDataChange(DataSnapshot snap) {
-			mPlayer.setYdel(mPlayer.getYdel() - (int)snap.getValue() + prevValue);
-			prevValue = (int)snap.getValue();
+			mPlayer.setYdel(mPlayer.getYdel() - Integer.parseInt(snap.getValue().toString()) + prevValue);
+			prevValue = Integer.parseInt(snap.getValue().toString());
+			Log.d("DISS COOP", "up value changed, ydel: " + mPlayer.getYdel());
 		}
 
 		@Override
@@ -142,8 +125,9 @@ public class GameManager {
 
 		@Override
 		public void onDataChange(DataSnapshot snap) {
-			mPlayer.setYdel(mPlayer.getYdel() + (int)snap.getValue() - prevValue);
-			prevValue = (int)snap.getValue();
+			mPlayer.setYdel(mPlayer.getYdel() + Integer.parseInt(snap.getValue().toString()) - prevValue);
+			prevValue = Integer.parseInt(snap.getValue().toString());
+			Log.d("DISS COOP", "down value changed, ydel: " + mPlayer.getYdel());
 		}
 
 		@Override
@@ -162,8 +146,9 @@ public class GameManager {
 
 		@Override
 		public void onDataChange(DataSnapshot snap) {
-			mPlayer.setXdel(mPlayer.getXdel() + (int)snap.getValue() - prevValue);
-			prevValue = (int)snap.getValue();
+			mPlayer.setXdel(mPlayer.getXdel() + Integer.parseInt(snap.getValue().toString()) - prevValue);
+			prevValue = Integer.parseInt(snap.getValue().toString());
+			Log.d("DISS COOP", "right value changed, xdel: " + mPlayer.getXdel());
 		}
 
 		@Override

@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mcindoe.dissonantcooperation.R;
+import com.mcindoe.dissonantcooperation.controllers.GameManager;
 
 public class GameActivity extends ActionBarActivity {
 	
@@ -13,6 +14,7 @@ public class GameActivity extends ActionBarActivity {
 	
 	private String mName;
 	private GameControlFragment mGameControlFragment;
+	private GameManager mGameManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,13 +23,20 @@ public class GameActivity extends ActionBarActivity {
 		
 		mName = getIntent().getExtras().getString(KW_NAME);
 		setTitle(mName + "'s Game");
-		
-		mGameControlFragment = new GameControlFragment();
 
 		if (savedInstanceState == null) {
+
+			mGameControlFragment = new GameControlFragment();
+			
+			Bundle args = new Bundle();
+			args.putString(GameControlFragment.KW_FIREBASE_URL, getResources().getString(R.string.firebase_player_url) + mName);
+			mGameControlFragment.setArguments(args);
+
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, mGameControlFragment).commit();
 		}
+		
+		mGameManager = new GameManager(getResources().getString(R.string.firebase_base_url));
 	}
 
 	@Override
