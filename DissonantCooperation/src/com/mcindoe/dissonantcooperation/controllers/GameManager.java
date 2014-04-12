@@ -75,6 +75,7 @@ public class GameManager {
 					if(newState == GAME_OVER) {
 						//WE LOST!!!
 						if(!gameOver) {
+							Log.d("DISS COOP", "We lost, maybe");
 							mGameEventListener.onGameLost();
 						}
 					}

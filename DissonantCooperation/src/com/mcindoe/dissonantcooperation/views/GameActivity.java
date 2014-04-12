@@ -92,7 +92,9 @@ public class GameActivity extends ActionBarActivity implements GameManager.GameE
 				});
 				AlertDialog dialog = builder.create();
 
-				dialog.show();
+				if(!con.isFinishing()) {
+					dialog.show();
+				}
 			}
 			
 		});
@@ -118,7 +120,9 @@ public class GameActivity extends ActionBarActivity implements GameManager.GameE
 				});
 				AlertDialog dialog = builder.create();
 
-				dialog.show();
+				if(!con.isFinishing()) {
+					dialog.show();
+				}
 			}
 		});
 	}
