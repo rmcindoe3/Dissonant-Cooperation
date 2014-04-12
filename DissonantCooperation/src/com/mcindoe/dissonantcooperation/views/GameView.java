@@ -16,7 +16,8 @@ public class GameView extends View {
 	
 	private GameManager mGameManager;
 	private Paint paint = new Paint();
-	private Bitmap myImg = BitmapFactory.decodeResource(getResources(), R.drawable.one);
+	private Bitmap playerImg = BitmapFactory.decodeResource(getResources(), R.drawable.one);
+	private Bitmap coinImg = BitmapFactory.decodeResource(getResources(), R.drawable.coin);
 
 	public GameView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
@@ -45,8 +46,18 @@ public class GameView extends View {
     }
     
     private void drawGameImg(Canvas canvas) {
-    	float left = (float) mGameManager.getPlayer().getX();
-    	float top = (float) mGameManager.getPlayer().getY();
-    	canvas.drawBitmap(myImg, left, top, null);
+    	// display coins
+    	for(int i = 0; i < mGameManager.getCoins().size(); i++) {
+    		float coinLeft = (float) mGameManager.getCoins().get(i).getX();
+        	float coinTop = (float) mGameManager.getCoins().get(i).getY();
+        	
+        	canvas.drawBitmap(coinImg, coinLeft, coinTop, null);
+    	}
+    	
+    	// display player
+    	float playerLeft = (float) mGameManager.getPlayer().getX();
+    	float playerTop = (float) mGameManager.getPlayer().getY();
+    	
+    	canvas.drawBitmap(playerImg, playerLeft, playerTop, null);
     }
 }
