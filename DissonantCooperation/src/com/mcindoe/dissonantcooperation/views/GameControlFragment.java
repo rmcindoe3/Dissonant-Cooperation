@@ -11,10 +11,13 @@ import android.widget.Button;
 
 import com.firebase.client.Firebase;
 import com.mcindoe.dissonantcooperation.R;
+import com.mcindoe.dissonantcooperation.controllers.GameManager;
 
 public class GameControlFragment extends Fragment {
 
 	public static final String KW_FIREBASE_URL = "firebase_url";
+	
+	private GameView mGameView;
 
 	private Button mLeftButton;
 	private Button mRightButton;
@@ -45,6 +48,9 @@ public class GameControlFragment extends Fragment {
 		mRightButton = (Button)rootView.findViewById(R.id.button_right);
 		mUpButton = (Button)rootView.findViewById(R.id.button_up);
 		mDownButton = (Button)rootView.findViewById(R.id.button_down);
+		
+		mGameView = (GameView)rootView.findViewById(R.id.game_view);
+		mGameView.setGameManager(new GameManager(getResources().getString(R.string.firebase_base_url)));
 		
 		mLeftButton.setOnTouchListener(new OnTouchListener() {
 
@@ -137,4 +143,7 @@ public class GameControlFragment extends Fragment {
 		return rootView;
 	}
 		
+	public void disconnect() {
+		mGameView.disconnect();
+	}
 }

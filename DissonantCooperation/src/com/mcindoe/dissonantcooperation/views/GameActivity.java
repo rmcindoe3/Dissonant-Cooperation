@@ -2,6 +2,7 @@ package com.mcindoe.dissonantcooperation.views;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,7 +15,6 @@ public class GameActivity extends ActionBarActivity {
 	
 	private String mName;
 	private GameControlFragment mGameControlFragment;
-	private GameManager mGameManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +35,12 @@ public class GameActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, mGameControlFragment).commit();
 		}
-		
-		mGameManager = new GameManager(getResources().getString(R.string.firebase_base_url));
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		mGameManager.disconnect();
+		mGameControlFragment.disconnect();
 		finish();
 	}
 
