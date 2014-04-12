@@ -3,6 +3,7 @@ package com.mcindoe.dissonantcooperation.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.firebase.client.ChildEventListener;
@@ -14,6 +15,8 @@ import com.mcindoe.dissonantcooperation.models.Coin;
 import com.mcindoe.dissonantcooperation.models.Player;
 
 public class GameManager {
+	
+	private static final int mHxW = 68;
 	
 	private Player mPlayer;
 	private List<Coin> mCoins;
@@ -27,14 +30,14 @@ public class GameManager {
 	private ChildEventListener mChildEventListener;
 	
 	public GameManager(String firebaseURL) {
-		
+
 		mFirebaseURL = firebaseURL;
 
-		mPlayer = new Player(0,0,50,50);
+		mPlayer = new Player(0,0,mHxW,mHxW);
 		mCoins = new ArrayList<Coin>();
 		
 		for(int i = 0; i < 5; i++) {
-			mCoins.add(new Coin((int)Math.random()*500, (int)Math.random()*500, 50, 50));
+			mCoins.add(new Coin((int)(Math.random()*500), (int)(Math.random()*500), mHxW, mHxW));
 		}
 		
 		mFirebasePlayerRoot = new Firebase(mFirebaseURL + "player/");
@@ -92,6 +95,7 @@ public class GameManager {
 		
 		for(int i = 0; i < mCoins.size(); i++) {
 			if(mPlayer.isColliding(mCoins.get(i))) {
+				Log.d("DISS COOP", "deleting a coin");
 				mCoins.remove(i--);
 			}
 		}

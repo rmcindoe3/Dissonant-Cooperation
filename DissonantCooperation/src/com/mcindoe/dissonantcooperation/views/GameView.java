@@ -80,7 +80,6 @@ public class GameView extends View {
 		public void run() {
 			
 			mGameManager.updateGame();
-			mGameManager.getPlayer().printPlayerInfo();
 
 			//We have to run this on our UI thread according to Android OS.
 			((Activity) mContext).runOnUiThread(new Runnable() {

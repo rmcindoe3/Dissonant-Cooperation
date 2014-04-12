@@ -1,5 +1,7 @@
 package com.mcindoe.dissonantcooperation.models;
 
+import android.util.Log;
+
 public abstract class GameObject {
 	
 	protected int x;
@@ -22,6 +24,11 @@ public abstract class GameObject {
 			}
 		}
 		return false;
+	}
+	
+	public void printInfo() {
+		Log.d("DISS COOP", "X: " + x);
+		Log.d("DISS COOP", "Y: " + y);
 	}
 
 	public int getX() {
