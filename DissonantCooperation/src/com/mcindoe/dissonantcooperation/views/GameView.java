@@ -39,17 +39,14 @@ public class GameView extends View {
 	}
 	
     protected void onDraw(Canvas canvas) {
-//    	Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Config.ARGB_8888);
-//    	Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon);
     	super.onDraw(canvas);
     	paint.setColor(Color.RED);
-    	canvas.drawRect(40, 40, 80, 80, paint);
-    	drawGameImg(canvas, getWidth(), getHeight());
+    	drawGameImg(canvas);
     }
     
-    private void drawGameImg(Canvas canvas, int viewWidth, int viewHeight) {
-    	float left = (float) Math.random() * viewWidth;
-    	float top = (float) Math.random() * viewHeight;
+    private void drawGameImg(Canvas canvas) {
+    	float left = (float) mGameManager.getPlayer().getX();
+    	float top = (float) mGameManager.getPlayer().getY();
     	canvas.drawBitmap(myImg, left, top, null);
     }
 }
