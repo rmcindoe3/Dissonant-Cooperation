@@ -1,28 +1,29 @@
 package com.mcindoe.dissonantcooperation.views;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 
 import com.mcindoe.dissonantcooperation.R;
 
-public class MainActivity extends ActionBarActivity {
+public class GameActivity extends ActionBarActivity {
+	
+	public static final String KW_NAME = "name";
+	
+	private String mName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_game);
 		
-		getActionBar().hide();
+		mName = getIntent().getExtras().getString(KW_NAME);
+		setTitle(mName + "'s Game");
 
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
@@ -34,7 +35,7 @@ public class MainActivity extends ActionBarActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.game, menu);
 		return true;
 	}
 
@@ -54,9 +55,6 @@ public class MainActivity extends ActionBarActivity {
 	 * A placeholder fragment containing a simple view.
 	 */
 	public static class PlaceholderFragment extends Fragment {
-		
-		private Button mPlayButton;
-		private EditText mNameEditText;
 
 		public PlaceholderFragment() {
 		}
@@ -64,23 +62,8 @@ public class MainActivity extends ActionBarActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
+			View rootView = inflater.inflate(R.layout.fragment_game, container,
 					false);
-			
-			mPlayButton = (Button)rootView.findViewById(R.id.button_play);
-			mNameEditText = (EditText)rootView.findViewById(R.id.edit_text_enter_name);
-			
-			mPlayButton.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-
-					Intent intent = new Intent(getActivity(), GameActivity.class);
-					intent.putExtra(GameActivity.KW_NAME, mNameEditText.getText().toString());
-					startActivityForResult(intent, 0);
-				}
-			});
-			
 			return rootView;
 		}
 	}

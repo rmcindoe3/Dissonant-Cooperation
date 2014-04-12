@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="firebase_player_url">https://diss-coop.firebaseio.com/player/</string>
     <string name="firebase_base_url">https://diss-coop.firebaseio.com/</string>
+    <string name="title_activity_game">GameActivity</string>
 
 </resources>
