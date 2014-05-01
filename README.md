@@ -11,6 +11,8 @@ The game concept is pretty simple.  The goal is to collect all the coins located
 
 In order to create the real time multi-user interaction in such a short development time the Firebase (www.firebase.com) API was used.  More info about that can be found at their website.
 
+[Screenshots of Application](http://imgur.com/a/etuSO)
+
 ### How to Setup the Android Project
 1. Clone the repo to your machine.
 2. Using your IDE of choice, import the DissonantCooperation folder as an existing Android project.
